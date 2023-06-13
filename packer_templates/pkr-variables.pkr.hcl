@@ -200,7 +200,7 @@ variable "vmware_tools_upload_path" {
 }
 variable "vmware_version" {
   type    = number
-  default = 20
+  default = 18
 }
 variable "vmware_vmx_data" {
   type = map(string)
