@@ -1,6 +1,14 @@
 #cloud-config
 autoinstall:
   version: 1
+  timezone: Asia/Shanghai
+  apt:
+    preserve_sources_list: false
+    primary:
+      - arches: [amd64, i386]
+        uri: https://mirrors.ustc.edu.cn/ubuntu/
+      - arches: [default]
+        uri: https://mirrors.ustc.edu.cn/ubuntu-ports/
   identity:
     hostname: vagrant
     username: vagrant
@@ -9,9 +17,18 @@ autoinstall:
     # otherwise packer tries to connect and exceed max attempts:
     - systemctl stop ssh.service
     - systemctl stop ssh.socket
+  source:
+    id: ubuntu-server-minimal
+    search_drivers: false
   ssh:
     install-server: yes
     allow-pw: yes
+  storage:
+    swap:
+      size: 0
+    layout:
+      name: lvm
+      sizing-policy: all
   late-commands:
       - 'sed -i "s/dhcp4: true/&\n      dhcp-identifier: mac/" /target/etc/netplan/00-installer-config.yaml'
       - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vagrant
