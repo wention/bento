@@ -24,11 +24,8 @@ autoinstall:
     install-server: yes
     allow-pw: yes
   storage:
-    swap:
-      size: 0
     layout:
-      name: lvm
-      sizing-policy: all
+      name: direct
   late-commands:
       - 'sed -i "s/dhcp4: true/&\n      dhcp-identifier: mac/" /target/etc/netplan/00-installer-config.yaml'
       - echo 'vagrant ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/vagrant
