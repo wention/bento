@@ -34,10 +34,5 @@ trap {
     Exit 1
 }
 
-Write-Host 'Enabling Remote Desktop...'
-Set-ItemProperty `
-    -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' `
-    -Name fDenyTSConnections `
-    -Value 0
-Enable-NetFirewallRule `
-    -DisplayGroup 'Ô¶³Ì×ÀÃæ'
+Write-Host 'Disabling the UAC...'
+Set-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value 0

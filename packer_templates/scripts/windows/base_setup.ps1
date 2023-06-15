@@ -2,7 +2,7 @@ Write-Host "Performing the WinRM setup necessary to get the host ready for packe
 
 # Make 100% sure we prevent Packer from connecting to WinRM while we
 # attempt to configure everything
-Disable-NetFirewallRule -DisplayGroup 'Windows Remote Management'
+Disable-NetFirewallRule -DisplayGroup 'Windows 远程管理'
 
 # Disable UAC
 Set-ItemProperty -Path "registry::HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System" -Name "EnableLUA" -Value 0
@@ -41,8 +41,8 @@ Set-Service -Name "winrm" -StartupType "Automatic"
 Start-Service -Name "winrm"
 
 # Enable WinRM in Firewall for any remote address
-Get-NetFirewallRule -DisplayGroup "Windows Remote Management" | Get-NetFirewallAddressFilter | Set-NetFirewallAddressFilter -RemoteAddress Any
-Enable-NetFirewallRule -DisplayGroup "Windows Remote Management"
+Get-NetFirewallRule -DisplayGroup "Windows 远程管理" | Get-NetFirewallAddressFilter | Set-NetFirewallAddressFilter -RemoteAddress Any
+Enable-NetFirewallRule -DisplayGroup "Windows 远程管理"
 
 # Reset auto logon count
 # https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-shell-setup-autologon-logoncount#logoncount-known-issue

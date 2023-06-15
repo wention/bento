@@ -34,10 +34,4 @@ trap {
     Exit 1
 }
 
-Write-Host 'Enabling Remote Desktop...'
-Set-ItemProperty `
-    -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' `
-    -Name fDenyTSConnections `
-    -Value 0
-Enable-NetFirewallRule `
-    -DisplayGroup 'Ô¶³Ì×ÀÃæ'
+Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "ScreenSaveActive" -Value 0

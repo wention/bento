@@ -201,6 +201,8 @@ build {
     search_criteria = "IsInstalled=0"
     except          = var.is_windows ? null : local.source_names
   }
+
+  /*
   provisioner "chef-solo" {
     chef_license = "accept-no-persist"
     version      = "17"
@@ -218,9 +220,24 @@ build {
     ]
     except = var.is_windows ? null : local.source_names
   }
+  */
+  provisioner "powershell" {
+    elevated_password = "vagrant"
+    elevated_user     = "vagrant"
+    scripts = [
+      "${path.root}/scripts/windows/disable-uac.ps1",
+      "${path.root}/scripts/windows/configure-power.ps1",
+      "${path.root}/scripts/windows/disable-screensaver.ps1",
+      "${path.root}/scripts/windows/ui-tweaks.ps1"
+    ]
+    except = var.is_windows ? null : local.source_names
+  }
+
   provisioner "windows-restart" {
     except = var.is_windows ? null : local.source_names
   }
+
+  /*
   provisioner "chef-solo" {
     chef_license = "accept-no-persist"
     version      = "17"
@@ -234,6 +251,7 @@ build {
     ]
     except = var.is_windows ? null : local.source_names
   }
+  */
   provisioner "powershell" {
     elevated_password = "vagrant"
     elevated_user     = "vagrant"
